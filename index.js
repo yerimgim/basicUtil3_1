@@ -1,6 +1,6 @@
 const wrapper = document.querySelector("#wrapper");
 const items = document.querySelector("#items");
-const silder = document.querySelector("#silder");
+const silder = document.querySelector("#slider");
 const item = document.querySelectorAll(".item");
 const next = document.querySelector(".next");
 const prev = document.querySelector(".prev");
@@ -16,6 +16,7 @@ function initializeData() {
   if (isActive) items.classList.remove("active");
   const width = wrapper.clientWidth;
   const interval = item[1].clientWidth;
+  console.log("interval", interval);
   const margin = (width - interval) / 2;
   const initX = Math.floor((interval - margin) * -1);
   let pos = [];
@@ -25,7 +26,7 @@ function initializeData() {
   positions = pos;
   items.style.width = (itemCount + 1) * 100 + "%";
   items.style.left = positions[currentIdx] + "px";
-  silder.style.visibility = "visible";
+  slider.style.visibility = "visible";
 }
 
 window.addEventListener("resize", initializeData);
@@ -58,8 +59,7 @@ wrapper.onmousedown = (e) => {
       wrapper.classList.remove("active");
     items.removeEventListener("mousemove", onMouseMove);
     document.onmouseup = null;
-    if (moveX > -70 && moveX <= 70) {
-      //   만약 -70~70이면 초기위치로 이동
+    if (moveX > -100 && moveX <= 100) {
       return (items.style.left = positions[currentIdx] + "px");
     }
     if (moveX > 0 && currentIdx > 0) {
